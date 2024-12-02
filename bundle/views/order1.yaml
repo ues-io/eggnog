@@ -336,6 +336,7 @@ definition:
                     uesio.styleTokens:
                       root:
                         - shadow-xl
+                    mode: EDIT
               uesio.display:
                 - type: fieldValue
                   operator: EQUALS
