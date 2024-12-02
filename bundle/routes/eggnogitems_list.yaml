@@ -1,0 +1,5 @@
+name: eggnogitems_list
+path: eggnogitems
+view: eggnogitems_list
+theme: uesio/core.default
+title: eggnogitems List

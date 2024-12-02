@@ -1,0 +1,79 @@
+name: footer
+definition:
+  wires:
+  components:
+    - uesio/sitekit.footer:
+        content:
+          - uesio/io.box:
+              uesio.variant: uesio/sitekit.footer_wrapper
+              components:
+                - uesio/io.image:
+                    file: eurocanuck/eggnog.logo
+                    filepath: ""
+                    height: 44
+                    signals:
+                      - signal: route/REDIRECT
+                        namespace: uesio/core
+                        path: https://ues.io
+                        newtab: true
+                - uesio/io.grid:
+                    uesio.variant: uesio/sitekit.footer_linkwrapper
+                    items:
+                      - uesio/io.group:
+                          uesio.variant: uesio/sitekit.footer_linkcategory
+                          components:
+                            - uesio/io.text:
+                                uesio.variant: uesio/sitekit.footer_linkcategorytitle
+                                text: About
+                            - uesio/io.group:
+                                uesio.variant: uesio/sitekit.footer_linkcategory
+                                components:
+                                  - uesio/io.button:
+                                      uesio.variant: uesio/sitekit.footer_link
+                                      text: Our Story
+                                  - uesio/io.button:
+                                      uesio.variant: uesio/sitekit.footer_link
+                                      text: Meet the Team
+                                  - uesio/io.button:
+                                      uesio.variant: uesio/sitekit.footer_link
+                                      text: Careers
+                      - uesio/io.group:
+                          uesio.variant: uesio/sitekit.footer_linkcategory
+                          components:
+                            - uesio/io.text:
+                                uesio.variant: uesio/sitekit.footer_linkcategorytitle
+                                text: Resources
+                            - uesio/io.group:
+                                uesio.variant: uesio/sitekit.footer_linkcategory
+                                components:
+                                  - uesio/io.button:
+                                      uesio.variant: uesio/sitekit.footer_link
+                                      text: Recipes
+                                  - uesio/io.button:
+                                      uesio.variant: uesio/sitekit.footer_link
+                                      text: FAQs
+                                  - uesio/io.button:
+                                      uesio.variant: uesio/sitekit.footer_link
+                                      text: Blog
+                      - uesio/io.group:
+                          uesio.variant: uesio/sitekit.footer_linkcategory
+                          components:
+                            - uesio/io.text:
+                                uesio.variant: uesio/sitekit.footer_linkcategorytitle
+                                text: Legal
+                            - uesio/io.group:
+                                uesio.variant: uesio/sitekit.footer_linkcategory
+                                components:
+                                  - uesio/io.button:
+                                      uesio.variant: uesio/sitekit.footer_link
+                                      text: Terms of Service
+                                  - uesio/io.button:
+                                      uesio.variant: uesio/sitekit.footer_link
+                                      text: Privacy Policy
+                                  - uesio/io.button:
+                                      uesio.variant: uesio/sitekit.footer_link
+                                      text: Shipping & Returns
+        note:
+          - uesio/io.text:
+              text: My Company Inc. | All rights Reserved © | Generated with ues.io SiteKit
+              uesio.variant: uesio/sitekit.footer_note

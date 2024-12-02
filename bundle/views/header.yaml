@@ -1,0 +1,34 @@
+name: header
+definition:
+  wires:
+  components:
+    - uesio/sitekit.header:
+        uesio.styleTokens:
+          root:
+            - bg-white/90
+        sticky: true
+        logo:
+          - uesio/io.image:
+              file: eurocanuck/eggnog.logo2
+              filepath: ""
+              height: 100
+              signals:
+                - signal: "route/NAVIGATE"
+                  path: "home"
+        right:
+          - uesio/io.group:
+              components:
+                - uesio/io.button:
+                    uesio.variant: uesio/sitekit.secondary_dark
+                    text: About Us
+                - uesio/io.button:
+                    uesio.variant: uesio/sitekit.secondary_dark
+                    text: Products
+                    signals:
+                      - signal: route/NAVIGATE_TO_ROUTE
+                        route: eurocanuck/eggnog.order
+          - uesio/io.group:
+              components:
+                - uesio/io.button:
+                    uesio.variant: uesio/sitekit.primary_dark
+                    text: Contact Us

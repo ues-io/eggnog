@@ -1,0 +1,6 @@
+name: order_no
+label: Order Number
+type: AUTONUMBER
+autonumber:
+  prefix: EGG
+  leadingZeros: 6

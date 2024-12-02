@@ -1,0 +1,71 @@
+name: home
+definition:
+  wires:
+  components:
+    - uesio/io.viewlayout:
+        uesio.variant: eurocanuck/eggnog.page
+        header:
+          - uesio/core.view:
+              view: eurocanuck/eggnog.header
+        content:
+          - uesio/sitekit.section_hero:
+              title: "Indulge in the Taste of the Holidays"
+              subtitle: "Premium Eggnog for Festive Celebrations"
+              actions:
+                - uesio/io.button:
+                    uesio.variant: uesio/sitekit.primary_dark
+                    text: Get Started
+                    icon: shopping_cart
+                    signals:
+                      - signal: route/NAVIGATE_TO_ROUTE
+                        route: eurocanuck/eggnog.order
+                - uesio/io.button:
+                    uesio.variant: uesio/sitekit.secondary_dark
+                    text: Learn more
+          - uesio/io.box:
+              components:
+                - uesio/sitekit.section_feature:
+                    title: Premium Eggnog
+                    subtitle: Delicious Holiday Treat
+                    description: Our eggnog is made with the finest, freshest ingredients for a rich, creamy taste that will delight your taste buds this holiday season.
+                - uesio/sitekit.section_feature:
+                    title: Convenient Delivery
+                    subtitle: Easy Holiday Shopping
+                    description: Order your eggnog online and have it delivered straight to your door, just in time for your holiday gatherings.
+                - uesio/sitekit.section_feature:
+                    title: Festive Packaging
+                    subtitle: Holiday Cheer
+                    description: Our eggnog comes in beautifully designed holiday-themed packaging, making it the perfect gift or addition to your own holiday celebrations.
+          - uesio/sitekit.section_testimonial:
+              quote: Delicious eggnog that captures the spirit of the season. Highly recommend!
+              name: David T.
+              title: Accountant
+              avatar: uesio/sitekit.avatarpics
+              avatarPath: images/randy_billingston.jpg
+          - uesio/sitekit.section:
+              innerVariant: uesio/sitekit.section_inner_content_three_column
+              uesio.styleTokens:
+                root:
+                  - bg-white/80
+              content:
+                - uesio/sitekit.testimonial:
+                    quote: The best eggnog I've ever tasted! It's the perfect addition to my holiday gatherings.
+                    name: Sarah M.
+                    title: Homemaker
+                    avatar: uesio/sitekit.avatarpics
+                    avatarPath: images/sandy_burtrand.jpg
+                - uesio/sitekit.testimonial:
+                    quote: I order this eggnog every year - it's become a holiday tradition in my family!
+                    name: John D.
+                    title: Small Business Owner
+                    avatar: uesio/sitekit.avatarpics
+                    avatarPath: images/gavin_foster.jpg
+                - uesio/sitekit.testimonial:
+                    quote: Smooth, creamy, and bursting with flavor. This eggnog is a Christmas must-have!
+                    name: Emily L.
+                    title: Culinary Enthusiast
+                    avatar: uesio/sitekit.avatarpics
+                    avatarPath: images/connie_forrester.jpg
+        footer:
+          - uesio/core.view:
+              view: eurocanuck/eggnog.footer

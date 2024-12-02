@@ -1,0 +1,4 @@
+name: eggnogitems
+label: Eggnog Product
+pluralLabel: Eggnog Products
+nameField: product_name

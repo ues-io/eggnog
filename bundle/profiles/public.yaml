@@ -1,0 +1,4 @@
+name: public
+permissionSets:
+  - eurocanuck/eggnog.public
+  - uesio/core.public
