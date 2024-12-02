@@ -1,0 +1,133 @@
+name: order_list
+definition:
+  # Wires connect to data in collections
+  wires:
+    orders:
+      fields:
+        eurocanuck/eggnog.order_no: {}
+        eurocanuck/eggnog.firstname: {}
+        eurocanuck/eggnog.lastname: {}
+        eurocanuck/eggnog.total: {}
+        eurocanuck/eggnog.address1: {}
+        uesio/core.id: {}
+        eurocanuck/eggnog.cancelled: {}
+        uesio/core.createdat: {}
+      collection: eurocanuck/eggnog.order
+      batchsize: 200
+      init:
+        query: true
+        create: false
+    items:
+      fields:
+        eurocanuck/eggnog.name: {}
+        eurocanuck/eggnog.order: {}
+        eurocanuck/eggnog.order_no:
+          fields:
+            eurocanuck/eggnog.order_no: {}
+        eurocanuck/eggnog.price: {}
+        eurocanuck/eggnog.quantity: {}
+        uesio/core.id: {}
+      collection: eurocanuck/eggnog.cart
+      batchsize: 200
+      init:
+        query: true
+        create: false
+      conditions:
+        - field: eurocanuck/eggnog.order_no->uesio/core.id
+          valueSource: VALUE
+          inactive: true
+          id: order
+          operator: EQ
+  # Components determine the layout and composition of your view
+  components:
+    - uesio/io.viewlayout:
+        uesio.variant: uesio/io.default
+        content:
+          - uesio/io.box:
+              components:
+                - uesio/io.table:
+                    wire: orders
+                    columns:
+                      - field: eurocanuck/eggnog.order_no
+                      - field: eurocanuck/eggnog.firstname
+                      - field: eurocanuck/eggnog.lastname
+                      - field: eurocanuck/eggnog.address1
+                      - field: eurocanuck/eggnog.total
+                      - field: eurocanuck/eggnog.cancelled
+                      - field: uesio/core.createdat
+                    rowactions:
+                      - text: ""
+                        icon: delete
+                        signals:
+                          - signal: wire/MARK_FOR_DELETE
+                            wire: orders
+                      - type: ""
+                        signals:
+                          - signal: wire/SET_CONDITION_VALUE
+                            wire: items
+                            conditionId: order
+                            value: ${uesio/core.id}
+                          - signal: wire/LOAD
+                            wires:
+                              - items
+                          - signal: panel/OPEN
+                            panel: orderDetails
+                        icon: remove_red_eye
+                    uesio.id: orders
+                    mode: READ
+              signals: []
+              uesio.styleTokens:
+                root:
+                  - m-9
+        header:
+          - uesio/io.box:
+              components:
+                - uesio/io.grid:
+                    items:
+                      - uesio/io.button:
+                          text: Save
+                          icon: bolt
+                          uesio.variant: uesio/io.default
+                          iconPlacement: start
+                          signals:
+                            - signal: wire/SAVE
+                              wires:
+                                - orders
+                      - uesio/io.button:
+                          text: Cancel
+                          icon: cancel
+                          uesio.variant: uesio/io.default
+                          iconPlacement: start
+                          signals:
+                            - signal: wire/CANCEL
+                              wire: orders
+                      - uesio/io.button:
+                          text: Edit
+                          icon: bolt
+                          uesio.variant: uesio/io.default
+                          iconPlacement: start
+                          signals: []
+                    uesio.variant: uesio/appkit.three_columns
+                    uesio.styleTokens:
+                      root:
+                        - float-right
+                        - m-6
+  panels:
+    orderDetails:
+      uesio.type: uesio/io.dialog
+      components:
+        - uesio/io.table:
+            wire: items
+            uesio.id: items
+            mode: READ
+            pagesize: 10
+            rownumbers: true
+            columns:
+              - field: eurocanuck/eggnog.name
+              - field: eurocanuck/eggnog.quantity
+              - field: eurocanuck/eggnog.price
+      width: 60%
+      height: 60%
+      title: Order Details
+      uesio.variant: uesio/io.default
+      closeOnOutsideClick: true

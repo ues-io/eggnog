@@ -45,6 +45,7 @@ definition:
         eurocanuck/eggnog.price: {}
         eurocanuck/eggnog.quantity: {}
         eurocanuck/eggnog.order: null
+        eurocanuck/eggnog.order_no: {}
       collection: eurocanuck/eggnog.cart
       batchsize: 200
       init:
@@ -70,6 +71,12 @@ definition:
     order:
       fields:
         eurocanuck/eggnog.order_no: {}
+        uesio/core.id: {}
+        eurocanuck/eggnog.total: {}
+        eurocanuck/eggnog.lastname: {}
+        eurocanuck/eggnog.firstname: {}
+        eurocanuck/eggnog.address1: {}
+        eurocanuck/eggnog.cancelled: {}
       collection: eurocanuck/eggnog.order
       batchsize: 1
       init:
@@ -319,6 +326,7 @@ definition:
                 - uesio/io.table:
                     wire: cart
                     columns:
+                      - field: eurocanuck/eggnog.order_no
                       - field: eurocanuck/eggnog.order
                         readonly: true
                       - field: eurocanuck/eggnog.name
@@ -375,13 +383,11 @@ definition:
                           uesio.variant: uesio/sitekit.primary_dark
                           iconPlacement: start
                           signals:
-                            - signal: integration/RUN_ACTION
-                              stepId: checkout
-                              integrationType: uesio/stripe.stripe
-                              integration: uesio/stripe.stripe
-                              action: uesio/stripe.checkout_retrieve
-                              params:
-                                id: "7"
+                            - signal: wire/SAVE
+                              wires:
+                                - order
+                            - signal: panel/OPEN
+                              panel: checkout
                           uesio.styleTokens:
                             root:
                               - w-max
@@ -516,4 +522,65 @@ definition:
       title: New Panel
       uesio.variant: uesio/io.default
       closeOnOutsideClick: true
+    checkout:
+      uesio.type: uesio/io.dialog
+      components:
+        - uesio/io.list:
+            mode: EDIT
+            wire: order
+            uesio.id: ordered
+            components:
+              - uesio/io.field:
+                  fieldId: eurocanuck/eggnog.order_no
+                  readonly: true
+              - uesio/io.field:
+                  fieldId: eurocanuck/eggnog.firstname
+                  readonly: false
+              - uesio/io.field:
+                  fieldId: eurocanuck/eggnog.lastname
+              - uesio/io.field:
+                  fieldId: eurocanuck/eggnog.address1
+              - uesio/io.button:
+                  text: Back
+                  icon: add_shopping_cart
+                  uesio.variant: uesio/sitekit.secondary_dark
+                  iconPlacement: start
+                  signals:
+                    - signal: panel/CLOSE
+                      panel: checkout
+              - uesio/io.button:
+                  text: PAY
+                  icon: monetization_on
+                  uesio.variant: uesio/sitekit.primary_dark
+                  iconPlacement: start
+                  signals:
+                    - signal: wire/SAVE
+                      wires:
+                        - order
+                        - cart
+                      onerror:
+                        notify: false
+              - uesio/io.button:
+                  text: CANCEL
+                  icon: cancel
+                  uesio.variant: uesio/sitekit.primary
+                  iconPlacement: start
+                  signals:
+                    - signal: wire/UPDATE_FIELDS
+                      wire: order
+                      fields:
+                        - field: eurocanuck/eggnog.cancelled
+                          value: true
+                    - signal: wire/SAVE
+                      wires:
+                        - order
+                    - signal: route/RELOAD
+      width: 60%
+      height: 60%
+      title: Enter Delivery Details
+      uesio.variant: uesio/io.default
+      uesio.styleTokens:
+        root:
+          - shadow-2xl
+          - bg-blue-200
   params: {}

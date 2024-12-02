@@ -1,3 +1,4 @@
 name: order
 label: Order
 pluralLabel: Orders
+nameField: order_no
