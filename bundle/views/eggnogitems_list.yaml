@@ -1,0 +1,57 @@
+name: eggnogitems_list
+definition:
+  # Wires connect to data in collections
+  wires:
+    eggnogitems:
+      collection: eurocanuck/eggnog.eggnogitems
+      fields:
+        eurocanuck/eggnog.eggnogimage:
+        eurocanuck/eggnog.product_brand:
+        eurocanuck/eggnog.product_category:
+        eurocanuck/eggnog.product_description:
+        eurocanuck/eggnog.product_is_active:
+        eurocanuck/eggnog.product_name:
+        eurocanuck/eggnog.product_price:
+        eurocanuck/eggnog.product_quantity: # Components determine the layout and composition of your view
+        uesio/core.id: {}
+  components:
+    - uesio/io.viewlayout:
+        uesio.variant: eurocanuck/eggnog.default
+        content:
+          - uesio/appkit.form_list:
+              wire: eggnogitems
+              linkedComponentType: uesio/io.table
+              linkedComponentId: eggnogitemsTable
+              filters:
+                - uesio/io.searchbox:
+                    uesio.variant: uesio/appkit.main
+                    wire: eggnogitems
+                    placeholder: Search $Collection{eggnogitems:pluralLabel}
+              content:
+                - uesio/io.table:
+                    uesio.variant: uesio/appkit.main
+                    selectable: true
+                    rowactions:
+                      - icon: visibility
+                        text: View
+                        type: DEFAULT
+                        uesio.display:
+                          - type: recordIsNotNew
+                        signals:
+                          - signal: route/NAVIGATE_TO_ASSIGNMENT
+                            viewtype: detail
+                            recordid: ${uesio/core.id}
+                            collection: eurocanuck/eggnog.eggnogitems
+                    columns:
+                      - field: eurocanuck/eggnog.eggnogimage
+                      - field: eurocanuck/eggnog.product_brand
+                      - field: eurocanuck/eggnog.product_category
+                      - field: eurocanuck/eggnog.product_description
+                      - field: eurocanuck/eggnog.product_is_active
+                      - field: eurocanuck/eggnog.product_name
+                      - field: eurocanuck/eggnog.product_price
+                      - field: eurocanuck/eggnog.product_quantity
+                      - field: uesio/core.id
+                    uesio.id: eggnogitemsTable
+                    wire: eggnogitems
+                    pagesize: 10

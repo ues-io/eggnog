@@ -1,0 +1,299 @@
+name: order_items
+definition:
+  # Wires connect to data in collections
+  wires:
+    items:
+      fields:
+        eurocanuck/eggnog.eggnogimage: {}
+        eurocanuck/eggnog.product_brand: {}
+        eurocanuck/eggnog.product_category: {}
+        eurocanuck/eggnog.product_description: {}
+        eurocanuck/eggnog.product_name: {}
+        eurocanuck/eggnog.product_price: {}
+        eurocanuck/eggnog.product_quantity: {}
+        uesio/core.id: {}
+      collection: eurocanuck/eggnog.eggnogitems
+      batchsize: 200
+      init:
+        query: true
+        create: false
+    itempopup:
+      fields:
+        eurocanuck/eggnog.eggnogimage: {}
+        eurocanuck/eggnog.product_brand: {}
+        eurocanuck/eggnog.product_category: {}
+        eurocanuck/eggnog.product_description: {}
+        eurocanuck/eggnog.product_name: {}
+        eurocanuck/eggnog.product_price: {}
+        eurocanuck/eggnog.product_quantity: {}
+        uesio/core.id: {}
+      collection: eurocanuck/eggnog.eggnogitems
+      batchsize: 200
+      init:
+        query: true
+        create: false
+      conditions:
+        - id: id
+          field: uesio/core.id
+          operator: EQ
+          valueSource: VALUE
+          inactive: true
+          value: ""
+    cart:
+      fields:
+        eurocanuck/eggnog.name: {}
+        eurocanuck/eggnog.price: {}
+        eurocanuck/eggnog.quantity: {}
+      collection: eurocanuck/eggnog.cart
+      batchsize: 200
+      init:
+        query: false
+        create: false
+  # Components determine the layout and composition of your view
+  components:
+    - uesio/io.viewlayout:
+        uesio.variant: eurocanuck/eggnog.page
+        content:
+          - uesio/io.deck:
+              mode: READ
+              uesio.variant: uesio/io.four_column_grid
+              components:
+                - uesio/io.box:
+                    components:
+                      - uesio/io.grid:
+                          items:
+                            - uesio/io.box:
+                                components:
+                                  - uesio/io.text:
+                                      text: ${eurocanuck/eggnog.product_name}
+                                      element: div
+                                      align: left
+                                      uesio.variant: uesio/crm.bold
+                                      uesio.styleTokens:
+                                        root:
+                                          - text-xl
+                                  - uesio/io.text:
+                                      text: ${eurocanuck/eggnog.product_description}
+                                      element: div
+                                      align: center
+                                      uesio.styleTokens:
+                                        root:
+                                          - pt-4
+                                  - uesio/io.field:
+                                      fieldId: eurocanuck/eggnog.product_price
+                                      readonly: true
+                                      labelPosition: left
+                                      label: CHF
+                                      uesio.styleTokens:
+                                        readonly: []
+                            - uesio/io.box:
+                                components:
+                                  - uesio/io.box:
+                                      components:
+                                        - uesio/io.image:
+                                            loading: eager
+                                            file: ""
+                                            src: $UserFile{eurocanuck/eggnog.eggnogimage}
+                                            uesio.variant: ""
+                                            uesio.styleTokens:
+                                              root:
+                                                - rounded-xl
+                                                - pb-5
+                                            height: null
+                                            width: null
+                                        - uesio/io.button:
+                                            text: Order
+                                            icon: add_shopping_cart
+                                            uesio.variant: uesio/sitekit.primary_dark
+                                            iconPlacement: end
+                                            uesio.styleTokens:
+                                              root:
+                                                - hover:bg-green-800
+                                            signals:
+                                              - signal: wire/SET_CONDITION_VALUE
+                                                wire: itempopup
+                                                conditionId: id
+                                                value: ${uesio/core.id}
+                                              - signal: wire/LOAD
+                                                wires:
+                                                  - itempopup
+                                              - signal: wire/CREATE_RECORD
+                                                stepId: add
+                                                wire: cart
+                                              - signal: wire/UPDATE_FIELDS
+                                                wire: cart
+                                                fields:
+                                                  - field: eurocanuck/eggnog.name
+                                                    value: ${itempopup:product_name}
+                                      uesio.styleTokens:
+                                        root:
+                                          - justify-items-center
+                          uesio.variant: uesio/appkit.two_columns
+                    uesio.variant: uesio/crm.card
+                    uesio.styleTokens:
+                      root:
+                        - align-middle
+                        - hover:scale-125
+                        - hover:shadow
+                        - rounded-lg
+                        - p-8
+                        - m-8
+                        - bg-white
+                        - shadow-xl
+                    signals: []
+              wire: items
+              uesio.styleTokens:
+                root:
+                  - p-12
+        uesio.styleTokens:
+          root:
+            - bg-blue-100
+        header:
+          - uesio/core.view:
+              view: eurocanuck/eggnog.header
+        right:
+          - uesio/appkit.sidebar:
+              header:
+                - uesio/io.table:
+                    wire: cart
+                    columns:
+                      - field: eurocanuck/eggnog.name
+                      - field: eurocanuck/eggnog.quantity
+                      - field: eurocanuck/eggnog.price
+                        components: []
+                    mode: READ
+                    uesio.display: []
+                    uesio.variant: ""
+                    uesio.styleTokens:
+                      root:
+                        - bg-white
+                - uesio/io.button:
+                    text: Continue
+                    icon: add_shopping_cart
+                    uesio.variant: uesio/sitekit.primary_dark
+                    iconPlacement: start
+                    signals: []
+                - uesio/io.button:
+                    text: Checkout
+                    icon: shopping_cart
+                    uesio.variant: uesio/sitekit.primary_dark
+                    iconPlacement: start
+                    signals:
+                      - signal: integration/RUN_ACTION
+                        integrationType: uesio/stripe.stripe
+                        integration: uesio/stripe.stripe
+                        action: uesio/stripe.checkout
+                    uesio.styleTokens:
+                      root:
+                        - mt-8
+                        - ml-20
+              scrollpanelVariant: uesio/appkit.card
+              content: []
+              uesio.display:
+                - type: wireHasRecords
+                  operator: EQUALS
+                  wire: cart
+  panels:
+    item:
+      uesio.type: uesio/io.dialog
+      components:
+        - uesio/io.box:
+            components:
+              - uesio/io.grid:
+                  uesio.variant: uesio/appkit.one_column
+                  items:
+                    - uesio/io.box:
+                        components:
+                          - uesio/io.list:
+                              mode: READ
+                              wire: itempopup
+                              components:
+                                - uesio/io.text:
+                                    text: ${eurocanuck/eggnog.product_name}
+                                    element: div
+                                    align: center
+                                    uesio.styleTokens:
+                                      root:
+                                        - text-2xl
+                                        - font-bold
+                                - uesio/io.field:
+                                    fieldId: eurocanuck/eggnog.eggnogimage
+                                    displayAs: PREVIEW
+                                    label: " "
+                                    wire: itempopup
+                                    labelPosition: none
+                                - uesio/io.text:
+                                    text: ${eurocanuck/eggnog.product_description}
+                                    element: div
+                                    align: center
+                                    uesio.styleTokens:
+                                      root:
+                                        - text-lg
+                                - uesio/io.text:
+                                    text: CHF ${eurocanuck/eggnog.product_price}
+                                    element: div
+                                    align: center
+                                    color: blue
+                                    uesio.variant: ""
+                                    uesio.styleTokens:
+                                      root:
+                                        - text-2xl
+                                        - font-bold
+                                        - pt-8
+                                - uesio/io.button:
+                                    text: Add to Cart
+                                    icon: add_shopping_cart
+                                    uesio.variant: uesio/appkit.primary
+                                    iconPlacement: start
+                                    signals:
+                                      - signal: wire/CREATE_RECORD
+                                        wire: cart
+                                        stepId: add
+                                        prepend: true
+                                      - signal: wire/UPDATE_FIELDS
+                                        wire: cart
+                                        fields:
+                                          - field: eurocanuck/eggnog.name
+                                            value: ${itempopup:product_name}
+                                          - field: eurocanuck/eggnog.price
+                                            value: ${itempopup:product_price}
+                                          - field: eurocanuck/eggnog.quantity
+                                            value: "1"
+                                    uesio.styleTokens:
+                                      root:
+                                        - pl-2
+                                        - mt-4
+                        uesio.variant: uesio/crm.flex_col
+      width: 40%
+      height: 80%
+      title: ""
+      uesio.variant: uesio/crm.default
+      afterClose: []
+      uesio.styleTokens:
+        root:
+          - min-h-full
+          - justify-center
+          - items-center
+          - inline-block
+    basket:
+      uesio.type: uesio/io.sidepanel
+      components:
+        - uesio/io.box:
+            uesio.styleTokens:
+              root:
+                - border
+            components:
+              - uesio/io.table:
+                  wire: cart
+                  columns:
+                    - field: eurocanuck/eggnog.name
+                    - field: eurocanuck/eggnog.quantity
+                    - field: eurocanuck/eggnog.price
+                  rownumbers: true
+                  mode: READ
+      width: 20%
+      height: 60%
+      title: New Panel
+      uesio.variant: uesio/io.default
+      closeOnOutsideClick: true
+  params: {}

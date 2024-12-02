@@ -1,0 +1,10 @@
+name: page
+label: Page
+extends: uesio/sitekit.default
+definition:
+  uesio.styleTokens:
+    root:
+      - bg-cover
+      - bg-[url($File{eurocanuck/eggnog.background:background.png})]
+    content:
+      - bg-white/20

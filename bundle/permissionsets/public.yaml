@@ -1,0 +1,28 @@
+name: public
+named: {}
+views:
+  eurocanuck/eggnog.eggnogitems_list: true
+  eurocanuck/eggnog.footer: true
+  eurocanuck/eggnog.header: true
+  eurocanuck/eggnog.home: true
+  eurocanuck/eggnog.order_items: true
+  eurocanuck/eggnog.order1: true
+collections: {}
+routes:
+  eurocanuck/eggnog.eggnogitems_list: true
+  eurocanuck/eggnog.home: true
+  eurocanuck/eggnog.order: true
+files: {}
+bots: {}
+integrationActions:
+  uesio/stripe.stripe:
+    allowAllActions: true
+    actions: {}
+allowallbots: false
+allowallcollections: true
+allowallviews: false
+allowallroutes: false
+allowallfiles: true
+allowallintegrationactions: false
+modifyallrecords: true
+viewallrecords: true

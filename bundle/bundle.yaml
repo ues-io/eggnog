@@ -1,0 +1,14 @@
+name: eurocanuck/eggnog
+homeRoute: eurocanuck/eggnog.home
+publicProfile: eurocanuck/eggnog.public
+dependencies:
+  uesio/appkit:
+    version: v0.0.1
+  uesio/core:
+    version: v0.0.1
+  uesio/io:
+    version: v0.0.1
+  uesio/sitekit:
+    version: v0.0.1
+  uesio/stripe:
+    version: v0.0.8

@@ -1,0 +1,5 @@
+name: eggnogimage
+label: 'Image '
+type: FILE
+file:
+  accept: ANY
