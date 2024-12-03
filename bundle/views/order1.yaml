@@ -550,7 +550,7 @@ definition:
                     - uesio/io.field:
                         fieldId: eurocanuck/eggnog.lastname
                     - uesio/io.field:
-                        fieldId: eurocanuck/eggnog.
+                        fieldId: eurocanuck/eggnog.address1
                     - uesio/io.box:
                         components:
                           - uesio/io.grid:
