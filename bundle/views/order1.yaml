@@ -186,6 +186,12 @@ definition:
                                                                   wires:
                                                                     - itempopup
                                                                 - signal: wire/CREATE_RECORD
+                                                                  stepId: orderno
+                                                                  wire: order
+                                                                - signal: wire/SAVE
+                                                                  wires:
+                                                                    - order
+                                                                - signal: wire/CREATE_RECORD
                                                                   stepId: add
                                                                   wire: cart
                                                                 - signal: wire/UPDATE_FIELDS
@@ -197,12 +203,6 @@ definition:
                                                                       value: "1"
                                                                     - field: eurocanuck/eggnog.price
                                                                       value: ${itempopup:product_price}
-                                                                - signal: wire/CREATE_RECORD
-                                                                  stepId: orderno
-                                                                  wire: order
-                                                                - signal: wire/SAVE
-                                                                  wires:
-                                                                    - order
                                                                 - signal: notification/ADD
                                                                   severity: info
                                                                   text: "Added to basket:"
@@ -332,9 +332,6 @@ definition:
                 - uesio/io.table:
                     wire: cart
                     columns:
-                      - field: eurocanuck/eggnog.order_no
-                      - field: eurocanuck/eggnog.order
-                        readonly: true
                       - field: eurocanuck/eggnog.name
                         readonly: true
                       - field: eurocanuck/eggnog.quantity
