@@ -47,6 +47,11 @@ definition:
         eurocanuck/eggnog.order: null
         eurocanuck/eggnog.order_no: {}
       collection: eurocanuck/eggnog.cart
+      defaults:
+        - field: eurocanuck/eggnog.order_no
+          valueSource: LOOKUP
+          lookupWire: order
+          lookupField: uesio/core.id
       batchsize: 200
       init:
         query: false
@@ -171,6 +176,7 @@ definition:
                                                               uesio.styleTokens:
                                                                 root:
                                                                   - hover:bg-green-800
+                                                                  - shadow-xl
                                                               signals:
                                                                 - signal: wire/SET_CONDITION_VALUE
                                                                   wire: itempopup
@@ -419,6 +425,9 @@ definition:
           - uesio/core.view:
               view: eurocanuck/eggnog.header
         right: []
+        footer:
+          - uesio/core.view:
+              view: eurocanuck/eggnog.footer
   panels:
     item:
       uesio.type: uesio/io.dialog
@@ -525,56 +534,90 @@ definition:
     checkout:
       uesio.type: uesio/io.dialog
       components:
-        - uesio/io.list:
-            mode: EDIT
-            wire: order
-            uesio.id: ordered
+        - uesio/io.box:
             components:
-              - uesio/io.field:
-                  fieldId: eurocanuck/eggnog.order_no
-                  readonly: true
-              - uesio/io.field:
-                  fieldId: eurocanuck/eggnog.firstname
-                  readonly: false
-              - uesio/io.field:
-                  fieldId: eurocanuck/eggnog.lastname
-              - uesio/io.field:
-                  fieldId: eurocanuck/eggnog.address1
-              - uesio/io.button:
-                  text: Back
-                  icon: add_shopping_cart
-                  uesio.variant: uesio/sitekit.secondary_dark
-                  iconPlacement: start
-                  signals:
-                    - signal: panel/CLOSE
-                      panel: checkout
-              - uesio/io.button:
-                  text: PAY
-                  icon: monetization_on
-                  uesio.variant: uesio/sitekit.primary_dark
-                  iconPlacement: start
-                  signals:
-                    - signal: wire/SAVE
-                      wires:
-                        - order
-                        - cart
-                      onerror:
-                        notify: false
-              - uesio/io.button:
-                  text: CANCEL
-                  icon: cancel
-                  uesio.variant: uesio/sitekit.primary
-                  iconPlacement: start
-                  signals:
-                    - signal: wire/UPDATE_FIELDS
-                      wire: order
-                      fields:
-                        - field: eurocanuck/eggnog.cancelled
-                          value: true
-                    - signal: wire/SAVE
-                      wires:
-                        - order
-                    - signal: route/RELOAD
+              - uesio/io.list:
+                  mode: EDIT
+                  wire: order
+                  uesio.id: ordered
+                  components:
+                    - uesio/io.field:
+                        fieldId: eurocanuck/eggnog.order_no
+                        readonly: true
+                    - uesio/io.field:
+                        fieldId: eurocanuck/eggnog.firstname
+                        readonly: false
+                    - uesio/io.field:
+                        fieldId: eurocanuck/eggnog.lastname
+                    - uesio/io.field:
+                        fieldId: eurocanuck/eggnog.
+                    - uesio/io.box:
+                        components:
+                          - uesio/io.grid:
+                              uesio.variant: uesio/appkit.three_columns
+                              items:
+                                - uesio/io.button:
+                                    text: Back
+                                    icon: add_shopping_cart
+                                    uesio.variant: uesio/sitekit.secondary_dark
+                                    iconPlacement: start
+                                    signals:
+                                      - signal: panel/CLOSE
+                                        panel: checkout
+                                    uesio.styleTokens:
+                                      root:
+                                        - shadow-2xl
+                                        - border
+                                - uesio/io.button:
+                                    text: PAY
+                                    icon: monetization_on
+                                    uesio.variant: uesio/sitekit.primary_dark
+                                    iconPlacement: start
+                                    signals:
+                                      - signal: wire/SAVE
+                                        wires:
+                                          - order
+                                          - cart
+                                        onerror:
+                                          notify: false
+                                    uesio.styleTokens:
+                                      root:
+                                        - shadow-2xl
+                                - uesio/io.button:
+                                    text: CANCEL
+                                    icon: cancel
+                                    uesio.variant: uesio/sitekit.primary
+                                    iconPlacement: start
+                                    signals:
+                                      - signal: wire/UPDATE_FIELDS
+                                        wire: order
+                                        fields:
+                                          - field: eurocanuck/eggnog.cancelled
+                                            value: true
+                                      - signal: wire/SAVE
+                                        wires:
+                                          - order
+                                      - signal: route/RELOAD
+                                    uesio.styleTokens:
+                                      root:
+                                        - shadow-2xl
+                                        - border
+                              uesio.styleTokens:
+                                root:
+                                  - p-2
+                        uesio.variant: ""
+                        uesio.styleTokens:
+                          root:
+                            - bg-white
+                            - m-2
+                            - p-2
+                            - rounded-3xl
+            uesio.styleTokens:
+              root:
+                - p-4
+                - bg-blue-50
+                - rounded-3xl
+                - shadow-xl
       width: 60%
       height: 60%
       title: Enter Delivery Details

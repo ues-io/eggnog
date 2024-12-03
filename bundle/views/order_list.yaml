@@ -87,7 +87,7 @@ definition:
                       - uesio/io.button:
                           text: Save
                           icon: bolt
-                          uesio.variant: uesio/io.default
+                          uesio.variant: uesio/appkit.primary
                           iconPlacement: start
                           signals:
                             - signal: wire/SAVE
@@ -96,7 +96,7 @@ definition:
                       - uesio/io.button:
                           text: Cancel
                           icon: cancel
-                          uesio.variant: uesio/io.default
+                          uesio.variant: uesio/sitekit.primary
                           iconPlacement: start
                           signals:
                             - signal: wire/CANCEL
@@ -104,7 +104,7 @@ definition:
                       - uesio/io.button:
                           text: Edit
                           icon: bolt
-                          uesio.variant: uesio/io.default
+                          uesio.variant: uesio/io.destructive
                           iconPlacement: start
                           signals: []
                     uesio.variant: uesio/appkit.three_columns
@@ -112,6 +112,8 @@ definition:
                       root:
                         - float-right
                         - m-6
+              uesio.styleTokens:
+                root: []
   panels:
     orderDetails:
       uesio.type: uesio/io.dialog

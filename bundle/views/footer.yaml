@@ -8,14 +8,18 @@ definition:
               uesio.variant: uesio/sitekit.footer_wrapper
               components:
                 - uesio/io.image:
-                    file: eurocanuck/eggnog.logo
+                    file: ""
                     filepath: ""
-                    height: 44
+                    height: 80
                     signals:
                       - signal: route/REDIRECT
                         namespace: uesio/core
                         path: https://ues.io
                         newtab: true
+                    uesio.styleTokens:
+                      root:
+                        - rounded-xl
+                    src: https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDV5em0xbHBocWdjd3RuMHRvajh0N3V2N3E0ZHFsbnlnOGpuMDVsciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jsO6bnNhtTqzdto4Nw/giphy.webp
                 - uesio/io.grid:
                     uesio.variant: uesio/sitekit.footer_linkwrapper
                     items:
