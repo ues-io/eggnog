@@ -15,6 +15,10 @@ definition:
               signals:
                 - signal: "route/NAVIGATE"
                   path: "home"
+              uesio.styleTokens:
+                root:
+                  - rounded-xl
+                  - shadow-2xl
         right:
           - uesio/io.group:
               components:
@@ -32,3 +36,4 @@ definition:
                 - uesio/io.button:
                     uesio.variant: uesio/sitekit.primary_dark
                     text: Contact Us
+        left: []
