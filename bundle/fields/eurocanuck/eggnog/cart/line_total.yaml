@@ -1,0 +1,6 @@
+name: line_total
+label: Line Total
+type: TEXT
+formula:
+  expression: eurocanuck/eggnog.price * eurocanuck/eggnog.quantity
+  returntype: NUMBER

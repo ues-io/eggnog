@@ -1,4 +1,4 @@
-name: order1
+name: aggcheck
 definition:
   # Wires connect to data in collections
   wires:
@@ -47,16 +47,12 @@ definition:
         eurocanuck/eggnog.order: null
         eurocanuck/eggnog.order_no: {}
         eurocanuck/eggnog.line_total: {}
-        eurocanuck/eggnog.total: {}
       collection: eurocanuck/eggnog.cart
       defaults:
         - field: eurocanuck/eggnog.order_no
           valueSource: LOOKUP
           lookupWire: order
           lookupField: uesio/core.id
-        - field: eurocanuck/eggnog.total
-          valueSource: VALUE
-          value: $Formula{getField("eurocanuck/eggnog.price") * getField("eurocanuck/eggnog.quantity")}
       batchsize: 200
       init:
         query: false
@@ -66,16 +62,7 @@ definition:
           operator: CONTAINS
           valueSource: VALUE
           value: ${order:order_no}
-      events:
-        - type: onChange
-          fields:
-            - eurocanuck/eggnog.quantity
-          signals:
-            - signal: wire/UPDATE_FIELDS
-              wire: cart
-              fields:
-                - field: eurocanuck/eggnog.total
-                  value: $Formula{getField("eurocanuck/eggnog.price") * getField("eurocanuck/eggnog.quantity")}
+      events: []
     nav:
       viewOnly: true
       fields:
@@ -258,10 +245,10 @@ definition:
                                                                   fields:
                                                                     - field: eurocanuck/eggnog.name
                                                                       value: ${itempopup:product_name}
+                                                                    - field: eurocanuck/eggnog.quantity
+                                                                      value: 2
                                                                     - field: eurocanuck/eggnog.price
                                                                       value: ${itempopup:product_price}
-                                                                    - field: eurocanuck/eggnog.quantity
-                                                                      value: 1
                                                                 - signal: notification/ADD
                                                                   severity: info
                                                                   text: "Added to basket:"
@@ -353,7 +340,9 @@ definition:
                         readonly: false
                       - field: eurocanuck/eggnog.price
                         readonly: true
-                      - field: eurocanuck/eggnog.total
+                      - field: eurocanuck/eggnog.line_total
+                      - field: eurocanuck/eggnog.order
+                      - field: eurocanuck/eggnog.order_no
                     rowactions:
                       - text: ""
                         icon: delete_outline
@@ -382,10 +371,30 @@ definition:
                 - uesio/io.grid:
                     items:
                       - uesio/io.button:
+                          text: Save Cart Test
+                          icon: add_shopping_cart
+                          uesio.variant: uesio/sitekit.primary_dark
+                          iconPlacement: start
+                          signals:
+                            - signal: wire/SAVE
+                              wire: nav
+                              fields:
+                                - field: cart
+                                  value: false
+                              wires:
+                                - cart
+                            - signal: wire/LOAD_ALL
+                              wires:
+                                - cart
+                          uesio.styleTokens:
+                            root:
+                              - w-max
+                              - shadow-xl
+                      - uesio/io.button:
                           text: Contiue
                           icon: add_shopping_cart
                           uesio.variant: uesio/sitekit.primary_dark
-                          iconPlacement: end
+                          iconPlacement: start
                           signals:
                             - signal: wire/UPDATE_FIELDS
                               wire: nav
@@ -400,7 +409,7 @@ definition:
                           text: checkout
                           icon: add_shopping_cart
                           uesio.variant: uesio/sitekit.primary_dark
-                          iconPlacement: end
+                          iconPlacement: start
                           signals:
                             - signal: wire/SAVE
                               wires:
@@ -560,13 +569,10 @@ definition:
                     - uesio/io.field:
                         fieldId: eurocanuck/eggnog.firstname
                         readonly: false
-                        label: First Name*
                     - uesio/io.field:
                         fieldId: eurocanuck/eggnog.lastname
-                        label: Last Name*
                     - uesio/io.field:
                         fieldId: eurocanuck/eggnog.address1
-                        label: Delivery Address*
                     - uesio/io.box:
                         components:
                           - uesio/io.grid:
@@ -604,60 +610,6 @@ definition:
                                     uesio.styleTokens:
                                       root:
                                         - shadow-2xl
-                                    uesio.display:
-                                      - type: group
-                                        conjunction: AND
-                                        conditions:
-                                          - type: fieldValue
-                                            operator: NOT_IN
-                                            wire: order
-                                            field: eurocanuck/eggnog.firstname
-                                            values:
-                                              - ""
-                                          - type: fieldValue
-                                            operator: NOT_IN
-                                            wire: order
-                                            field: eurocanuck/eggnog.lastname
-                                            values:
-                                              - ""
-                                          - type: fieldValue
-                                            operator: NOT_IN
-                                            wire: order
-                                            field: eurocanuck/eggnog.address1
-                                            values:
-                                              - ""
-                                - uesio/io.button:
-                                    text: PAY
-                                    icon: monetization_on
-                                    uesio.variant: uesio/io.secondary
-                                    iconPlacement: start
-                                    signals: []
-                                    uesio.styleTokens:
-                                      root:
-                                        - shadow-2xl
-                                        - rounded-2xl
-                                    uesio.display:
-                                      - type: group
-                                        conjunction: OR
-                                        conditions:
-                                          - type: fieldValue
-                                            operator: IN
-                                            wire: order
-                                            field: eurocanuck/eggnog.firstname
-                                            values:
-                                              - ""
-                                          - type: fieldValue
-                                            operator: IN
-                                            wire: order
-                                            field: eurocanuck/eggnog.lastname
-                                            values:
-                                              - ""
-                                          - type: fieldValue
-                                            operator: IN
-                                            wire: order
-                                            field: eurocanuck/eggnog.address1
-                                            values:
-                                              - ""
                                 - uesio/io.button:
                                     text: CANCEL
                                     icon: cancel

@@ -1,0 +1,5 @@
+name: user_new
+path: users/new
+view: user_new
+theme: uesio/core.default
+title: Create User

@@ -1,0 +1,7 @@
+name: default
+label: Default Layout Variant
+extends: uesio/appkit.default
+definition:
+  extends: uesio/appkit.default
+  uesio.styleTokens:
+    root:

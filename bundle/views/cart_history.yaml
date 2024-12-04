@@ -1,0 +1,41 @@
+name: cart_history
+definition:
+  # Wires connect to data in collections
+  wires:
+    wire15:
+      fields:
+        eurocanuck/eggnog.name: {}
+        eurocanuck/eggnog.order: {}
+        eurocanuck/eggnog.price: {}
+        eurocanuck/eggnog.quantity: {}
+        uesio/core.id: {}
+        uesio/core.createdat: {}
+        eurocanuck/eggnog.order_no: {}
+        eurocanuck/eggnog.line_total: {}
+      collection: eurocanuck/eggnog.cart
+      batchsize: 200
+      init:
+        query: true
+        create: false
+  # Components determine the layout and composition of your view
+  components:
+    - uesio/io.button:
+        text: Save
+        icon: bolt
+        uesio.variant: uesio/sitekit.primary_dark
+        iconPlacement: start
+        signals:
+          - signal: wire/SAVE
+            wires:
+              - wire15
+    - uesio/io.table:
+        wire: wire15
+        columns:
+          - field: eurocanuck/eggnog.name
+          - field: eurocanuck/eggnog.order
+          - field: eurocanuck/eggnog.price
+          - field: eurocanuck/eggnog.quantity
+          - field: uesio/core.id
+          - field: uesio/core.createdat
+          - field: eurocanuck/eggnog.line_total
+        mode: EDIT

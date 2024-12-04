@@ -1,0 +1,60 @@
+name: cart_list
+definition:
+  # Wires connect to data in collections
+  wires:
+    cart:
+      collection: eurocanuck/eggnog.cart
+      fields:
+        eurocanuck/eggnog.order_no:
+        eurocanuck/eggnog.order:
+        eurocanuck/eggnog.name:
+        eurocanuck/eggnog.line_total:
+  # Components determine the layout and composition of your view
+  components:
+    - uesio/io.viewlayout:
+        uesio.variant: eurocanuck/eggnog.default
+        left:
+          - uesio/core.view:
+              view: eurocanuck/eggnog.leftnav
+              slots:
+                crumbs:
+                  - uesio/io.group:
+                      uesio.variant: uesio/appkit.breadcrumbs
+                      components:
+                        - uesio/appkit.icontile:
+                            tileVariant: uesio/appkit.breadcrumb
+                            title: $Collection{cart:pluralLabel}
+                            icon: $Collection{cart:icon}
+        content:
+          - uesio/appkit.form_list:
+              wire: cart
+              linkedComponentType: uesio/io.table
+              linkedComponentId: cartTable
+              filters:
+                - uesio/io.searchbox:
+                    uesio.variant: uesio/appkit.main
+                    wire: cart
+                    placeholder: Search $Collection{cart:pluralLabel}
+              content:
+                - uesio/io.table:
+                    uesio.variant: uesio/appkit.main
+                    selectable: true
+                    rowactions:
+                      - icon: visibility
+                        text: View
+                        type: DEFAULT
+                        uesio.display:
+                          - type: recordIsNotNew
+                        signals:
+                          - signal: route/NAVIGATE_TO_ASSIGNMENT
+                            viewtype: detail
+                            recordid: ${uesio/core.id}
+                            collection: eurocanuck/eggnog.cart
+                    columns:
+                      - field: eurocanuck/eggnog.order_no
+                      - field: eurocanuck/eggnog.order
+                      - field: eurocanuck/eggnog.name
+                      - field: eurocanuck/eggnog.line_total
+                    uesio.id: cartTable
+                    wire: cart
+                    pagesize: 10

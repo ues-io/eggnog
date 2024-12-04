@@ -1,6 +1,7 @@
-name: public
-label: Public Profile
+name: admin
+label: Admin Profile
 permissionSets:
+  - eurocanuck/eggnog.admin
   - eurocanuck/eggnog.public
   - uesio/appkit.public
   - uesio/core.public

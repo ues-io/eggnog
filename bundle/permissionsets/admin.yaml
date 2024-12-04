@@ -1,0 +1,17 @@
+name: admin
+named:
+  uesio/core.user_admin: true
+views: {}
+collections: {}
+routes: {}
+files: {}
+bots: {}
+integrationActions: {}
+allowallbots: true
+allowallcollections: true
+allowallviews: true
+allowallroutes: true
+allowallfiles: true
+allowallintegrationactions: true
+modifyallrecords: true
+viewallrecords: true

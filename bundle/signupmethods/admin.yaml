@@ -1,0 +1,8 @@
+name: admin
+authsource: uesio/core.platform
+profile: admin
+usernameTemplate: ${username}
+autoLogin: false
+enableSelfSignup: false
+createLoginBot: create_login_admin
+resetPasswordBot: reset_password_admin

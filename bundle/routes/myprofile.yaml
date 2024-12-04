@@ -1,0 +1,7 @@
+name: myprofile
+path: myprofile
+view: user
+params:
+  recordid: $User{id}
+theme: uesio/core.default
+title: My Profile
