@@ -1,0 +1,5 @@
+name: cart_list
+path: cart
+view: cart_list
+theme: uesio/core.default
+title: cart List

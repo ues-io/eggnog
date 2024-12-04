@@ -1,0 +1,5 @@
+name: users
+path: users
+view: users
+theme: uesio/core.default
+title: Users

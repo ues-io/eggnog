@@ -1,0 +1,24 @@
+name: users
+definition:
+  components:
+    - uesio/io.viewlayout:
+        uesio.variant: eurocanuck/eggnog.default
+        left:
+          - uesio/core.view:
+              view: eurocanuck/eggnog.leftnav
+              params:
+                selected: users
+              slots:
+                crumbs:
+                  - uesio/io.group:
+                      uesio.variant: uesio/appkit.breadcrumbs
+                      components:
+                        - uesio/appkit.icontile:
+                            tileVariant: uesio/appkit.breadcrumb
+                            title: Users
+                            icon: badge
+                            iconVariant: uesio/io.iconoutline
+        content:
+          - uesio/core.view:
+              view: uesio/appkit.user_list_content
+              uesio.id: userListContent

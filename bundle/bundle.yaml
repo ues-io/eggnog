@@ -1,4 +1,5 @@
 name: eurocanuck/eggnog
+loginRoute: eurocanuck/eggnog.login
 homeRoute: eurocanuck/eggnog.home
 publicProfile: eurocanuck/eggnog.public
 dependencies:

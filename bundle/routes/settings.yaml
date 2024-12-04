@@ -1,0 +1,5 @@
+name: settings
+path: settings
+view: settings
+theme: uesio/core.default
+title: Settings

@@ -1,0 +1,4 @@
+name: reset_password_admin
+public: true
+type: LISTENER
+dialect: TYPESCRIPT
