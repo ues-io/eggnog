@@ -354,6 +354,7 @@ definition:
                       - field: eurocanuck/eggnog.price
                         readonly: true
                       - field: eurocanuck/eggnog.total
+                        readonly: true
                     rowactions:
                       - text: ""
                         icon: delete_outline
@@ -364,6 +365,20 @@ definition:
                       root:
                         - shadow-xl
                     mode: EDIT
+                - uesio/io.box:
+                    components:
+                      - uesio/io.list:
+                          mode: READ
+                          wire: cart
+                          components:
+                            - uesio/io.text:
+                                text: "TOTAL: $Sum{cart:total}"
+                                element: div
+                                align: right
+                                uesio.variant: ""
+                                uesio.styleTokens:
+                                  root:
+                                    - m-6
               uesio.display:
                 - type: fieldValue
                   operator: EQUALS
