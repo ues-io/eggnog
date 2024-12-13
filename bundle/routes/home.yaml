@@ -1,5 +1,5 @@
 name: home
 path: home
-view: home
+view: order1
 theme: uesio/core.default
 title: Home

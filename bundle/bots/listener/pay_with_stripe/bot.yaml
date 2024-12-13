@@ -12,7 +12,7 @@ params:
     required: false
   - name: successUrl
     type: TEXT
-    required: false
+    required: true
   - name: cancelUrl
     type: TEXT
-    required: false
+    required: true
