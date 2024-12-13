@@ -1,0 +1,18 @@
+name: pay_with_stripe
+public: true
+type: LISTENER
+dialect: TYPESCRIPT
+params:
+  - name: order
+    label: A
+    type: TEXT
+    required: true
+  - name: currency
+    type: TEXT
+    required: false
+  - name: successUrl
+    type: TEXT
+    required: false
+  - name: cancelUrl
+    type: TEXT
+    required: false
