@@ -1,6 +1,5 @@
 name: eurocanuck/eggnog
-loginRoute: eurocanuck/eggnog.login
-homeRoute: eurocanuck/eggnog.home
+homeRoute: eurocanuck/eggnog.order
 publicProfile: eurocanuck/eggnog.public
 dependencies:
   uesio/appkit:
