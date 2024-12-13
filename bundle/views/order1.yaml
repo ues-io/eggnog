@@ -27,6 +27,7 @@ definition:
         eurocanuck/eggnog.product_price: {}
         eurocanuck/eggnog.product_quantity: {}
         uesio/core.id: {}
+        eurocanuck/eggnog.stripe_price: {}
       collection: eurocanuck/eggnog.eggnogitems
       batchsize: 200
       init:
@@ -48,6 +49,7 @@ definition:
         eurocanuck/eggnog.order_no: {}
         eurocanuck/eggnog.line_total: {}
         eurocanuck/eggnog.total: {}
+        eurocanuck/eggnog.stripe_price: {}
       collection: eurocanuck/eggnog.cart
       defaults:
         - field: eurocanuck/eggnog.order_no
@@ -216,6 +218,8 @@ definition:
                                                                       value: ${itempopup:product_name}
                                                                     - field: eurocanuck/eggnog.price
                                                                       value: ${itempopup:product_price}
+                                                                    - field: eurocanuck/eggnog.stripe_price
+                                                                      value: ${itempopup:stripe_price}
                                                                     - field: eurocanuck/eggnog.quantity
                                                                       value: 1
                                                                 - signal: wire/UPDATE_FIELDS
@@ -611,11 +615,19 @@ definition:
                                           - cart
                                         onerror:
                                           notify: false
-                                      - signal: integration/RUN_ACTION
-                                        stepId: pay
+                                      - signal: bot/CALL
+                                        stepId: payWithStripe
                                         integrationType: uesio/stripe.stripe
                                         integration: uesio/stripe.stripe
                                         action: uesio/stripe.checkout
+                                        bot: eurocanuck/eggnog.pay_with_stripe
+                                        params:
+                                          currency: chf
+                                          successUrl: /home
+                                          cancelUrl: /home
+                                          order: ${order:order_no}
+                                      - signal: route/REDIRECT
+                                        path: $SignalOutput{payWithStripe:checkoutResult.session.url}
                                     uesio.styleTokens:
                                       root:
                                         - shadow-2xl
