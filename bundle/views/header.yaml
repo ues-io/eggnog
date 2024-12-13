@@ -12,9 +12,7 @@ definition:
               file: eurocanuck/eggnog.logo2
               filepath: ""
               height: 100
-              signals:
-                - signal: "route/NAVIGATE"
-                  path: "home"
+              signals: []
               uesio.styleTokens:
                 root:
                   - rounded-xl

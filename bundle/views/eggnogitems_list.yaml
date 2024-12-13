@@ -14,6 +14,7 @@ definition:
         eurocanuck/eggnog.product_price:
         eurocanuck/eggnog.product_quantity: # Components determine the layout and composition of your view
         uesio/core.id: {}
+        eurocanuck/eggnog.stripe_price: {}
   components:
     - uesio/io.viewlayout:
         uesio.variant: eurocanuck/eggnog.default
@@ -50,6 +51,7 @@ definition:
                       - field: eurocanuck/eggnog.product_is_active
                       - field: eurocanuck/eggnog.product_name
                       - field: eurocanuck/eggnog.product_price
+                      - field: eurocanuck/eggnog.stripe_price
                       - field: eurocanuck/eggnog.product_quantity
                       - field: uesio/core.id
                     uesio.id: eggnogitemsTable
