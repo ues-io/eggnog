@@ -11,11 +11,7 @@ definition:
                     file: ""
                     filepath: ""
                     height: 80
-                    signals:
-                      - signal: route/REDIRECT
-                        namespace: uesio/core
-                        path: https://ues.io
-                        newtab: true
+                    signals: []
                     uesio.styleTokens:
                       root:
                         - rounded-xl
