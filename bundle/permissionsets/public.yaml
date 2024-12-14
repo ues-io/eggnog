@@ -1,17 +1,49 @@
 name: public
 named: {}
-views: {}
-collections: {}
+views:
+  eurocanuck/eggnog.order1: true
+collections:
+  eurocanuck/eggnog.cart:
+    read: true
+    create: true
+    edit: true
+    delete: false
+    modifyall: false
+    viewall: false
+    fields: {}
+  eurocanuck/eggnog.eggnogitems:
+    read: true
+    create: true
+    edit: true
+    delete: false
+    modifyall: false
+    viewall: false
+    fields: {}
+  eurocanuck/eggnog.order:
+    read: true
+    create: true
+    edit: true
+    delete: false
+    modifyall: false
+    viewall: false
+    fields: {}
 routes:
-  eurocanuck/eggnog.login: true
+  eurocanuck/eggnog.cart_list: true
+  eurocanuck/eggnog.eggnogitems_list: true
+  eurocanuck/eggnog.home: true
+  eurocanuck/eggnog.login: false
+  eurocanuck/eggnog.order: true
 files: {}
 bots: {}
-integrationActions: {}
+integrationActions:
+  uesio/stripe.stripe:
+    allowAllActions: true
+    actions: {}
 allowallbots: true
-allowallcollections: true
-allowallviews: true
-allowallroutes: true
+allowallcollections: false
+allowallviews: false
+allowallroutes: false
 allowallfiles: true
-allowallintegrationactions: true
-modifyallrecords: true
-viewallrecords: true
+allowallintegrationactions: false
+modifyallrecords: false
+viewallrecords: false
